@@ -100,39 +100,46 @@ class USBLmodel(MLmodel):
 
         if 'caustic' in self.origin[0]:
 
-            caustic_regime = binary_caustics.find_2_lenses_caustic_regime(
-                pyLIMA_parameters['separation'],
-                pyLIMA_parameters['mass_ratio'])
+            #caustic_regime = binary_caustics.find_2_lenses_caustic_regime(
+            #    pyLIMA_parameters['separation'],
+            #    pyLIMA_parameters['mass_ratio'])
 
-            caustics = binary_caustics.caustic_points_at_phi_0(
-                pyLIMA_parameters['separation'],
-                pyLIMA_parameters['mass_ratio'])
+            #caustics = binary_caustics.caustic_points_at_phi_0(
+             #   pyLIMA_parameters['separation'],
+             #   pyLIMA_parameters['mass_ratio'])
 
             caustic = 0 + 0 * 1j
+            caustics = binary_caustics.find_2_lenses_caustics_and_critical_curves(
+                pyLIMA_parameters['separation'],
+                pyLIMA_parameters['mass_ratio'],10)
 
-            if caustic_regime == 'resonant':
-                caustic = caustics[caustics.real.argmin()]
 
-            if (caustic_regime == 'wide') & (self.origin[0] == 'central_caustic'):
-                caustic = caustics[caustics.real.argmin()]
+            if caustics[0] == 'resonant':
+                #caustic = caustics[caustics.real.argmin()]
+                caustic = caustics[1][-1]
+            if (caustics[0] == 'wide') & (self.origin[0] == 'central_caustic'):
+                #caustic = caustics[caustics.real.argmin()]
+                caustic = caustics[1][0]
+            if (caustics[0] == 'wide') & ((self.origin[0] != 'central_caustic')):
+                #sorting = caustics.real.argsort()
+                #caustic = caustics[sorting[2]]
+                caustic = caustics[1][-2]
+                
+            if (caustics[0] == 'close') & (self.origin[0] == 'central_caustic'):
+                #sorting = caustics.imag.argsort()
+                #caustic = caustics[
+                #    np.where(caustics.real == caustics[sorting[1:3]].real.min())[0]]
+                caustic = caustics[1][0]
+            if (caustics[0] == 'close') & (self.origin[0] == 'second_caustic'):
+                #caustic = caustics[caustics.imag.argmax()]
+                caustic = caustics[1][1]
+            if (caustics[0] == 'close') & (self.origin[0] == 'third_caustic'):
+                #caustic = caustics[caustics.imag.argmin()]
+                caustic = caustics[1][2]
 
-            if (caustic_regime == 'wide') & ((self.origin[0] != 'central_caustic')):
-                sorting = caustics.real.argsort()
-                caustic = caustics[sorting[2]]
+            x_center = np.median(caustic.real)
+            y_center = np.median(caustic.imag)
 
-            if (caustic_regime == 'close') & (self.origin[0] == 'central_caustic'):
-                sorting = caustics.imag.argsort()
-                caustic = caustics[
-                    np.where(caustics.real == caustics[sorting[1:3]].real.min())[0]]
-
-            if (caustic_regime == 'close') & (self.origin[0] == 'second_caustic'):
-                caustic = caustics[caustics.imag.argmax()]
-
-            if (caustic_regime == 'close') & (self.origin[0] == 'third_caustic'):
-                caustic = caustics[caustics.imag.argmin()]
-
-            x_center = caustic.real
-            y_center = caustic.imag
             return x_center, y_center
 
         if 'primary' in self.origin[0]:
@@ -150,6 +157,7 @@ class USBLmodel(MLmodel):
 
             x_center = secondary_location
             y_center = 0
+
             return x_center, y_center
 
         if 'half' in self.origin[0]:

@@ -79,7 +79,7 @@ def create_telescopes_to_plot_model(microlensing_model, pyLIMA_parameters):
                     model_time2 = np.arange(
                         pyLIMA_parameters['t0'] - 1 * pyLIMA_parameters['tE'],
                         pyLIMA_parameters['t0'] + 1 * pyLIMA_parameters['tE'],
-                        1).round(2)
+                        0.1).round(2)
 
                     model_time = np.r_[model_time1, model_time2]
 
@@ -122,7 +122,7 @@ def create_telescopes_to_plot_model(microlensing_model, pyLIMA_parameters):
                     model_time2 = np.arange(
                         pyLIMA_parameters['t0'] - 1 * pyLIMA_parameters['tE'],
                         pyLIMA_parameters['t0'] + 1 * pyLIMA_parameters['tE'],
-                        1).round(2)
+                        0.1).round(2)
 
                     model_time = np.r_[model_time1, model_time2,tel.lightcurve[
                         'time'].value]
@@ -170,7 +170,7 @@ def create_telescopes_to_plot_model(microlensing_model, pyLIMA_parameters):
                 model_time2 = np.arange(
                     pyLIMA_parameters['t0'] - 1 * pyLIMA_parameters['tE'],
                     pyLIMA_parameters['t0'] + 1 * pyLIMA_parameters['tE'],
-                    1).round(2)
+                    0.1).round(2)
 
                 model_time = np.r_[model_time1, model_time2]
 

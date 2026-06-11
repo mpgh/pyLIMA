@@ -246,7 +246,7 @@ class MLmodel(object):
 
         model_dictionnary = self.paczynski_model_parameters()
 
-        model_dictionnary_updated = self.astrometric_model_parameters(model_dictionnary)
+        model_dictionnary_updated = self.astrometric_model_parameters(model_dictionnary.copy())
 
         self.second_order_model_parameters(model_dictionnary_updated)
 
