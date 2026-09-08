@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyLIMA"
+description = "Microlsening analysis package."
+version = "1.9.8"
+keywords = ['Microlsening analysis package']
+authors = [
+    { name = "Etienne Bachelet", email = "etibachelet@gmail.com" },
+]
+license = "GPL-3.0-or-later"
+license-files = [
+    "LICENSE",
+]
+requires-python = ">=3.6,<4"
+readme = "README.md"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Topic :: Software Development :: Build Tools',
+    'Programming Language :: Python :: 3',
+]
+dependencies = [
+    "astropy",
+    "astroquery",
+    "bokeh",
+    "emcee",
+    "importlib-metadata",
+    "kepler.py",
+    "numpy >= 1.7",
+    "pygtc",
+    "pymoo",
+    "scipy >= 1.0",
+    "tqdm >= 4.0",
+    "VBMicrolensing",
+    "speclite",
+    "scikit-learn",
+    "importlib-resources ; python_version < '3.9'",
+    "iminuit",
+]
+
+[project.urls]
+Homepage = "http://github.com/ebachelet/pyLIMA"
+Documentation = "https://pylima.readthedocs.io/en/latest/"
+
+[tool.ruff]
+# In addition to the standard set of exclusions, omit all tests, plus a specific file.
+extend-exclude = ["./examples/SAGAN_binary_3_old.ipynb"]
