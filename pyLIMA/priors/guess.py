@@ -23,9 +23,7 @@ def check_signal_in_lightcurve(time, magnitude):
     from scipy.stats import theilslopes
     # This limit is still problematic for survey with too few datapoints, but 
     # it mostly affects the selection for the guess.
-    print(len(time))
     if len(time) < 3:
-        print(False)
         return False
 
     try:
@@ -38,7 +36,6 @@ def check_signal_in_lightcurve(time, magnitude):
     #check based on bounds of the 95% confidence interval
     is_positive_significant = (low_slope > floating_point_tolerance)
     is_negative_significant = (high_slope < -floating_point_tolerance)
-    print(len(time),slope, intercept, low_slope, high_slope,is_positive_significant or is_negative_significant)
     return is_positive_significant or is_negative_significant
 
 
